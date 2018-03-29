@@ -1,0 +1,17 @@
+{
+  "name": "panda",
+  "description": "大熊猫旅行社",
+  "main": "panda.js",
+  "authors": [
+    "“ <guanbobo0@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/qmm123/panda",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
