@@ -1,6 +1,19 @@
 doctype html
 html
 	head
-		title hello pug
+		if showTests
+			link(rel="stylesheet", href="/vendor/mocha.css")
+		script(src="/lib/jquery/jquery.min.js")
 	body
-		h1 pug
+		if showTests
+			#{showTests}
+			div#mocha
+			script(src="/vendor/mocha.js")
+			script(src="/vendor/chai.js")
+			script
+				| mocha.ui('tdd')
+				| var assert = chai.assert
+			script(src="/qa/tests-global.js")
+			if pageTestScript
+				script(src=pageTestScript)
+			script mocha.run()

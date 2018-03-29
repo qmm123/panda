@@ -2,6 +2,8 @@ doctype html
 html
 	head
 		title hello pug
+		include layouts/main.pug
 	body
 		header
 			img(src="/img/logo.jpg")
+			p #{showTests}
