@@ -1,5 +1,10 @@
 const express = require('express');
 
+
+// 自己导出的模块
+const fortune = require('./lib/fortune');
+
+
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
@@ -22,7 +27,7 @@ app.get('/', (req, res, next) => {
 app.get('/about', (req, res) => {
 	const page = '关于页面';
 	res.render('about', {
-		page
+		page: fortune.getFortune()
 	});
 })
 
