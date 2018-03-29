@@ -31,6 +31,11 @@ app.use((req, res, next) => {
 // 首页
 app.get('/', (req, res, next) => {
 	res.render('home');
+	let str = "";
+	for(let name in req.headers) {
+		str += name + '=' + req.headers[name] + '\n';
+	}
+	console.log(str);
 })
 
 // about页面
