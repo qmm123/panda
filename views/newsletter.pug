@@ -1,1 +1,47 @@
-newsletter.pug
+doctype html
+html
+	head
+		title 首页
+		include layouts/main.pug
+		link(rel="stylesheet", href="/lib/bootstrap/dist/css/bootstrap.min.css")
+	body
+		h2 注册我们的通讯接收新闻和特价！
+		div.formContainer
+			form.form-horizontal.newsletterForm(role="from", action="/process?form=newsletter" method="POST")
+				input(type="hidden", name="_csrf", value=csrf)
+				div.form-group
+					label.col-sm-2.control-label(for="filedName") Name
+					div.col-sm-4
+						input.form-control#filedName(type="text", name="name")
+				div.form-group
+					label.col-sm-2.control-label(for="filedEmail") Email
+					div.col-sm-4
+						input.form-control#filedEmail(type="email", name="email", required)
+				div.form-group
+					div.col-sm-offset-2.col-sm-4
+						button.btn.btn-default(type="submit") Register
+		script.
+			$(function(){
+				console.log($('.newsletterForm').serialize())
+				$('.newsletterForm').on('submit', function(e){
+					e.preventDefault();
+					var action = $(this).attr('action');
+					var $container = $(this).closest('.formContainer')
+					$.ajax({
+						url: action,
+						type: 'POST',
+						data: $('.newsletterForm').serialize(),
+						success: function(data) {
+							if(data.success) {
+								$container.html('<h2>Thank you!</h2>');
+							} else {
+								$container.html('There was a problem');
+							}
+						},
+						error: function() {
+							$container.html('There was a error');
+						}
+					})
+				})
+			})
+

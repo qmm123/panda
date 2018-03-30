@@ -1,11 +1,13 @@
 const express = require('express');
 
-
 // 自己导出的模块
 const fortune = require('./lib/fortune');
 
 
 const app = express();
+
+// body-parser 处理表单
+app.use(require('body-parser')());
 
 app.set('port', process.env.PORT || 3000);
 
@@ -35,7 +37,7 @@ app.get('/', (req, res, next) => {
 	for(let name in req.headers) {
 		str += name + '=' + req.headers[name] + '\n';
 	}*/
-	console.log(req.xhr);
+	// console.log(req.xhr);
 })
 
 // about页面
@@ -45,6 +47,29 @@ app.get('/about', (req, res) => {
 		page: fortune.getFortune()
 	});
 })
+
+// 注册页面
+app.get('/newsletter', (req, res) => {
+	res.render('newsletter', {
+		csrf: 'CSRF token goes here'
+	})
+})
+
+// 注册页面 提交表单
+app.post('/process', (req, res) => {
+	console.log('Form (from queryString): ' + req.query.form);
+	console.log('CSRF token (from hidden from field): ' + req.body._csrf);
+	console.log('Name (from visible form field)：' + req.body.name);
+	console.log('Email (from visible form field): ' + req.body.email);
+	res.json({success: true})
+	// res.redirect(303, '/thank-you');
+})
+
+// thank-you 页面
+app.get('/thank-you', (req, res) => {
+	res.send('注册成功!');
+})
+
 
 // 定制404页面
 app.use((req, res) => {
