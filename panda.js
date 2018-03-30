@@ -31,11 +31,11 @@ app.use((req, res, next) => {
 // 首页
 app.get('/', (req, res, next) => {
 	res.render('home');
-	let str = "";
+	/*let str = "";
 	for(let name in req.headers) {
 		str += name + '=' + req.headers[name] + '\n';
-	}
-	console.log(str);
+	}*/
+	console.log(req.xhr);
 })
 
 // about页面
